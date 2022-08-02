@@ -20,7 +20,7 @@ from setuptools.command.test import test as TestCommand
 from subprocess import Popen, PIPE
 
 DIR = os.path.abspath(os.path.dirname(__file__))
-LIB_DIR = DIR + '/c-bindings'
+LIB_DIR = f'{DIR}/c-bindings'
 MODULE_SOURCES = ['python/_jsonnet.c']
 
 def get_version():
@@ -53,12 +53,11 @@ class NoopTestCommand(TestCommand):
 jsonnet_ext = Extension(
     '_gojsonnet',
     sources=MODULE_SOURCES,
-    extra_objects=[
-        LIB_DIR + '/libgojsonnet.a',
-    ],
-    include_dirs = ['cpp-jsonnet/include'],
+    extra_objects=[f'{LIB_DIR}/libgojsonnet.a'],
+    include_dirs=['cpp-jsonnet/include'],
     language='c++',
 )
+
 
 setup(name='gojsonnet',
     url='https://jsonnet.org',
